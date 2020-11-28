@@ -1,11 +1,9 @@
 var express=require('express');
-
+const path=require('path');
+const PORT=process.env.PORT || 5000;
 var app=express();
 
-app.listen(3000,function(){
-    console.log("Listening on Port 3000!")
-});
-
-app.get("/",function(req,res){
-    res.send("Hello World");    
-});
+express()
+.get('/', (req,res)=>{
+    res.send("Hello World");
+}).listen(PORT,()=>console.log('Listening On ${PORT}'))
