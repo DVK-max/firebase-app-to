@@ -2,10 +2,18 @@ var express=require('express');
 const path=require('path');
 const PORT=process.env.PORT || 5000;
 var app=express();
+var Upstox=require('upstox');
 
 var admin = require("firebase-admin");
 var serviceAccount = require("./mykey.json");
 const { SIGABRT } = require('constants');
+
+var upstox=new Upstox("o9ZAnYkbqe9ZJr8D3wLAj4yghBmCBIhG4tnds9s9");
+var accessToken;
+
+accessToken="e07225b4a5ced79817a38a05dba95252440d901a";
+
+upstox.setToken(accessToken);
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
@@ -13,6 +21,48 @@ admin.initializeApp({
 });
 
 i=1;
+
+upstox.getProfile().then(function(response){
+  var db=admin.database();
+
+    var Signals=db.ref();
+    var NewRoot=Signals.child("Upstox");
+    
+    var NewChild=NewRoot.push();
+    NewChild.set(response);
+
+}).catch(function(error){
+
+});
+
+upstox.getLiveFeed({
+  "exchange":"nse_fo",
+  "symbol":"BANKNIFTY20DECFUT",
+  "type":"full"
+});
+
+upstox.connectSocket()
+  .then(function(){
+    upstox.on("orderUpdate",function(message)
+    {
+      var db=admin.database();
+
+    var Signals=db.ref();
+    var NewRoot=Signals.child("UpstoxOrderUpdate");
+    
+    var NewChild=NewRoot.push();
+    NewChild.set(message);      
+    });
+    upstox.on("liveFeed",function(message){
+      var db=admin.database();
+
+      var Signals=db.ref();
+      var NewRoot=Signals.child("liveFeed");
+      
+      var NewChild=NewRoot.push();
+      NewChild.set(message);  
+    });
+  });
 
 express()
 .get('/', (req,res)=>{
@@ -27,6 +77,15 @@ express()
         Xid:NewSignal.key,
         Number:i
     });
+
+    upstox.getBalance({type:"security"})
+      .then(function(respose){
+        var NewChild=db.ref().child("Balance");
+        NewChild.push().set(respose);
+      })
+      .catch(function(err){
+        console.log(err);
+      });
 
     i++;
     res.send("Hello World "+i);
