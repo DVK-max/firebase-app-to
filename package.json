@@ -15,6 +15,7 @@
   "dependencies": {
     "express": "^4.17.1",
     "firebase-admin": "^9.4.1",
-    "upstox": "^2.0.0"
+    "upstox": "^2.0.0",
+    "ws": "^7.4.0"
   }
 }
