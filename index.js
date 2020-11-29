@@ -2,7 +2,7 @@ var express=require('express');
 const path=require('path');
 const PORT=process.env.PORT || 5000;
 var app=express();
-var Upstox=require('upstox');
+//var Upstox=require('upstox');
 
 var admin = require("firebase-admin");
 var serviceAccount = require("./mykey.json");
