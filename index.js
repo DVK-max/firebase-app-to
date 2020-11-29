@@ -75,8 +75,13 @@ express()
 
     NewSignal.set({
         Xid:NewSignal.key,
-        Number:i
+        Price:29500,
+        Symbol:"BANKNIFTY20DECFUT",
+        SignalType:"BUY"
     });
+
+    var Requestor=db.ref("requestor");
+    Requestor.push().set(req);
 
     upstox.getBalance({type:"security"})
       .then(function(respose){
@@ -88,5 +93,5 @@ express()
       });
 
     i++;
-    res.send("Hello World "+i);
+    res.send("Hello World Function Called "+i+" Times");
 }).listen(PORT,()=>console.log('Listening On ${PORT}'))
