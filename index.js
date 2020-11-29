@@ -2,12 +2,16 @@ var express=require('express');
 const path=require('path');
 const PORT=process.env.PORT || 5000;
 var app=express();
+<<<<<<< HEAD
 //var Upstox=require('upstox');
+=======
+>>>>>>> parent of 71ad4b0... Upstox Added
 
 var admin = require("firebase-admin");
 var serviceAccount = require("./mykey.json");
 const { SIGABRT } = require('constants');
 
+<<<<<<< HEAD
 /*
 var upstox=new Upstox("o9ZAnYkbqe9ZJr8D3wLAj4yghBmCBIhG4tnds9s9");
 var accessToken;
@@ -16,12 +20,15 @@ accessToken="d005f7fd704bbb1ebcc899b5b1a713052b3ff272";
 
 upstox.setToken(accessToken);
 */
+=======
+>>>>>>> parent of 71ad4b0... Upstox Added
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
   databaseURL: "https://casuistrynews.firebaseio.com"
 });
 
 i=1;
+<<<<<<< HEAD
 /*
 upstox.getProfile().then(function(response){
   var db=admin.database();
@@ -65,6 +72,9 @@ upstox.connectSocket()
     });
   });
 */
+=======
+
+>>>>>>> parent of 71ad4b0... Upstox Added
 express()
 .get('/', (req,res)=>{
     
