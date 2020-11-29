@@ -8,20 +8,21 @@ var admin = require("firebase-admin");
 var serviceAccount = require("./mykey.json");
 const { SIGABRT } = require('constants');
 
+/*
 var upstox=new Upstox("o9ZAnYkbqe9ZJr8D3wLAj4yghBmCBIhG4tnds9s9");
 var accessToken;
 
 accessToken="d005f7fd704bbb1ebcc899b5b1a713052b3ff272";
 
 upstox.setToken(accessToken);
-
+*/
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
   databaseURL: "https://casuistrynews.firebaseio.com"
 });
 
 i=1;
-
+/*
 upstox.getProfile().then(function(response){
   var db=admin.database();
 
@@ -63,7 +64,7 @@ upstox.connectSocket()
       NewChild.set(message);  
     });
   });
-
+*/
 express()
 .get('/', (req,res)=>{
     
@@ -79,18 +80,6 @@ express()
         Symbol:"BANKNIFTY20DECFUT",
         SignalType:"BUY"
     });
-
-    var Requestor=db.ref("requestor");
-    Requestor.push().set(req);
-
-    upstox.getBalance({type:"security"})
-      .then(function(respose){
-        var NewChild=db.ref().child("Balance");
-        NewChild.push().set(respose);
-      })
-      .catch(function(err){
-        console.log(err);
-      });
 
     i++;
     res.send("Hello World Function Called "+i);
