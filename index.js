@@ -11,7 +11,7 @@ const { SIGABRT } = require('constants');
 var upstox=new Upstox("o9ZAnYkbqe9ZJr8D3wLAj4yghBmCBIhG4tnds9s9");
 var accessToken;
 
-accessToken="e07225b4a5ced79817a38a05dba95252440d901a";
+accessToken="d005f7fd704bbb1ebcc899b5b1a713052b3ff272";
 
 upstox.setToken(accessToken);
 
